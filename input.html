@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Finding Alerts</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; background: radial-gradient(circle at top, #0a1d37 0%, #000814 100%); color:#ecf0f1; min-height:100vh; }
+header { background: rgba(15,23,42,0.95); color:#81c9fa; padding:20px; text-align:center; position:relative; }
+.logout { position:absolute; top:20px; right:30px; background-color:#e74c3c; color:white; padding:8px 14px; border-radius:5px; text-decoration:none; }
+.container { margin:40px auto; max-width:800px; background: rgba(28,42,58,0.92); padding:30px; border-radius:16px; }
+input, button { width:100%; padding:10px; margin-top:8px; }
+</style>
+
+<script>
+function getLocationOnce() {
+    let savedLat = localStorage.getItem("latitude");
+    let savedLon = localStorage.getItem("longitude");
+
+    if(savedLat && savedLon){
+        document.getElementById("latitude").value = savedLat;
+        document.getElementById("longitude").value = savedLon;
+        return;
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                localStorage.setItem("latitude", lat);
+                localStorage.setItem("longitude", lon);
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lon;
+            },
+            (err) => { console.log("Location access denied."); }
+        );
+    } else {
+        console.log("Geolocation not supported.");
+    }
+}
+
+window.onload = getLocationOnce;
+</script>
+
+</head>
+<body>
+<header>
+    Host System Anomaly Detection
+    <a href="{{ url_for('alert_page') }}" class="logout">Alerts</a>
+</header>
+<div class="container">
+<h2>Welcome, Akshitha</h2>
+<form method="POST" action="{{ url_for('input_page') }}">
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+
+    <label>1. Duration</label>
+    <input type="number" name="duration" required>
+
+    <label>2. Source Bytes</label>
+    <input type="number" name="src_bytes" required>
+
+    <label>3. Destination Bytes</label>
+    <input type="number" name="dst_bytes" required>
+
+    <label>4. Wrong Fragment</label>
+    <input type="number" name="wrong_fragment" required>
+
+    <label>5. Urgent</label>
+    <input type="number" name="urgent" required>
+
+    <button type="submit">Submit</button>
+</form>
+<button onclick="window.location.href='{{ url_for('alert_page') }}'">Alert History</button>
+</div>
+</body>
+</html>

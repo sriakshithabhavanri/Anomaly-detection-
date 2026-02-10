@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Host Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right top, #0b1a2d, #1c2a3a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #ecf0f1;
+        }
+
+        .login-container {
+            background: rgba(28, 42, 58, 0.95);
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4),
+                        inset 0 0 8px rgba(255, 255, 255, 0.05);
+            width: 380px;
+            backdrop-filter: blur(5px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5dade2;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #dce3ea;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #34495e;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #1f2d3d;
+            color: #ecf0f1;
+            transition: border 0.3s ease, background 0.3s ease;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus {
+            border-color: #5dade2;
+            background-color: #263545;
+            outline: none;
+        }
+
+        /* 🔹 Modern Login Button */
+        input[type=submit] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #5dade2, #3498db);
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        input[type=submit]:hover {
+            background: linear-gradient(135deg, #3498db, #2c82c9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(52, 152, 219, 0.6);
+        }
+
+        input[type=submit]:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.5);
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media screen and (max-width: 450px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Host Login</h2>
+        <form method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <input type="submit" value="Login">
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
